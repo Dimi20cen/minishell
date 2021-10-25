@@ -3,84 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/09 12:43:22 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/08/18 13:32:11 by dmylonas         ###   ########.fr       */
+/*   Created: 2021/05/13 11:14:21 by graja             #+#    #+#             */
+/*   Updated: 2021/05/27 13:46:16 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	len_until_stop(const char *s, char c)
+static
+int	ft_countdel(char const *s, char c)
 {
-	unsigned int	len;
-
-	len = 0;
-	while (*s != c && *s)
-	{
-		s++;
-		len++;
-	}
-	return (len);
-}
-
-int	word_counter(char const *s, char c)
-{
-	int	found;
-	int	i;
 	int	count;
+	int	i;
 
-	found = 0;
 	i = 0;
-	count = 1;
-	while (s[i])
+	count = 0;
+	while (s[i] != '\0')
 	{
-		if (found && s[i] != c)
-		{
-			found = 0;
+		if (s[i] == c)
 			count++;
-		}
-		else if (s[i] == c)
-			found = 1;
 		i++;
 	}
 	return (count);
 }
 
-char	**splitter(char **splitted, const char *s, const char c)
+static
+int	ft_getlen(char const *s, char c)
+{
+	int	count;
+
+	count = 0;
+	while ((*s != c) && (*s != '\0'))
+	{
+		s++;
+		count++;
+	}
+	return (count);
+}
+
+static
+void	ft_freemem(char **matrix, int max)
 {
 	int	i;
-	int	len;
 
 	i = 0;
-	while (*s)
+	while (i < max)
 	{
-		while (*s == c && *s)
-			s++;
-		if (*s)
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
+}
+
+static
+int	ft_cutter(char **res, char *bck, char c)
+{
+	int	i;
+	int	slen;
+
+	i = 0;
+	while (*bck != '\0')
+	{
+		slen = ft_getlen(bck, c);
+		if (slen > 0)
 		{
-			len = len_until_stop(s, c);
-			splitted[i] = (char *)ft_calloc(len + 1, sizeof(char));
-			if (!splitted[i])
-				return (NULL);
-			ft_memcpy(splitted[i], s, len);
-			s += len;
+			res[i] = malloc(sizeof(char) * (slen + 1));
+			if (!res[i])
+			{
+				ft_freemem(res, (i - 1));
+				return (-1);
+			}
+			ft_memcpy(res[i], bck, slen);
+			res[i][slen] = '\0';
 			i++;
 		}
+		bck += slen;
+		if (*bck != '\0')
+			bck++;
 	}
-	return (splitted);
+	return (i);
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**splitted;
+	char	**res;
+	char	*bck;
+	int		i;
+	int		all;
+	char	d[2];
 
-	if (!s)
+	ft_bzero(d, 2);
+	d[1] = c;
+	bck = ft_strtrim(s, d);
+	if (!bck)
 		return (NULL);
-	splitted = (char **)ft_calloc(word_counter(s, c) + 1, sizeof(char *));
-	if (!splitted)
-		return (NULL);
-	splitted = splitter(splitted, s, c);
-	return (splitted);
+	all = ft_countdel(bck, c) + 2;
+	res = malloc(sizeof(char *) * all);
+	if (res)
+	{
+		i = ft_cutter(res, bck, c);
+		if (i >= 0)
+			res[i] = NULL;
+	}
+	free(bck);
+	return (res);
 }

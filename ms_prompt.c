@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ms_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 12:00:22 by graja             #+#    #+#             */
-/*   Updated: 2021/05/20 15:50:28 by graja            ###   ########.fr       */
+/*   Created: 2021/10/25 12:16:35 by graja             #+#    #+#             */
+/*   Updated: 2021/10/25 13:00:25 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_putchar_fd(char c, int fd)
+char	*ms_getprompt(t_list *head)
 {
-	if (fd == 0)
-		return ;
-	write(fd, &c, 1);
+	char	*prompt;
+
+	prompt = ft_strjoin(ms_getenv(head, "LOGNAME"), ":\033[1;34m");
+	prompt = ft_strjoin(prompt, ms_getenv(head, "PWD"));
+	prompt = ft_strjoin(prompt, "\x1b[0m$ ");
+	return (prompt);
 }

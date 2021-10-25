@@ -6,7 +6,7 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:26:28 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/10/24 19:24:15 by dmylonas         ###   ########.fr       */
+/*   Updated: 2021/10/25 15:20:39 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,27 @@
 //"0"1"
 
 // Greeting shell during startup
-void ms_init_shell()
+void ms_init_shell(t_list **head)
 {
 	char	*input;
+	char	*prompt;
 	t_split	data;
 
 	while (1)
 	{
 		data.i = 0;
-		if (!(input = readline("gimme input NOW >")))
-			continue ;
-		// printf("the input is: %s\n", input);
-		add_history(input);
+		prompt = ms_getprompt(*head);
+		if (!(input = readline(prompt)))
+		{
+			free(prompt);
+			return ;
+		}
+		free(prompt);
+		/* printf("the input is: %s\n", input);
+		 * only add to history if strlen > 0
+		 */
+		if (ft_strlen(input))
+			add_history(input);
 		ms_input_parser(input, &data);
 		int j = -1;
 		while (j++ < 7)
@@ -37,8 +46,15 @@ void ms_init_shell()
 	}
 }
 
-int main()
+int main(int argc, char **argv, char **env)
 {
-	ms_init_shell();
+	t_list	**ehead;
+	
+	ehead = malloc(sizeof(t_list));
+	if (!ehead || !argc || !argv)
+		return (1);
+	ms_init_env(ehead, env);
+	ms_init_shell(ehead);
 	return (0);
+
 }

@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 12:00:22 by graja             #+#    #+#             */
-/*   Updated: 2021/05/20 15:50:28 by graja            ###   ########.fr       */
+/*   Created: 2021/05/24 13:19:07 by graja             #+#    #+#             */
+/*   Updated: 2021/08/27 13:54:35 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+t_list	*ft_lstnew(void *content)
 {
-	if (fd == 0)
-		return ;
-	write(fd, &c, 1);
+	t_list	*head;
+
+	head = malloc(sizeof(t_list));
+	if (head == NULL)
+		return (NULL);
+	head->content = content;
+	(*head).next = NULL;
+	return (head);
 }

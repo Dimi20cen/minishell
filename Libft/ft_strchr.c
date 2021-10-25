@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/03 13:09:59 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/08/18 13:11:27 by dmylonas         ###   ########.fr       */
+/*   Created: 2021/05/12 14:05:36 by graja             #+#    #+#             */
+/*   Updated: 2021/05/27 14:15:36 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s != '\0')
+	char	*bck;
+
+	bck = (char *)s;
+	while (*bck)
 	{
-		if (*s == c)
-			return ((char *)s);
-		s++;
+		if (*bck == (char)c)
+			return (bck);
+		bck++;
 	}
-	if (c == '\0')
-		return ((char *)s);
-	return (0);
+	if (!(*bck) && !c)
+		return (bck);
+	else
+		return (NULL);
 }

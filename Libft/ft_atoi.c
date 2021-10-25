@@ -3,35 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/30 19:55:17 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/08/18 13:10:09 by dmylonas         ###   ########.fr       */
+/*   Created: 2021/05/12 13:10:14 by graja             #+#    #+#             */
+/*   Updated: 2021/05/27 14:07:55 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static
+int	ft_space(char c)
+{
+	if (((c >= 8) && (c <= 13)) || (c == 32))
+		return (1);
+	else
+		return (0);
+}
+
 int	ft_atoi(const char *nptr)
 {
 	int			sign;
-	long int	num;
+	int			res;
 
+	res = 0;
 	sign = 1;
-	num = 0;
-	while ((*nptr >= 9 && *nptr <= 13) || *nptr == 32)
+	while (ft_space(*nptr))
 		nptr++;
-	if (*nptr == '-' || *nptr == '+')
+	if ((*nptr == '-') || (*nptr == '+'))
 	{
 		if (*nptr == '-')
 			sign = -1;
 		nptr++;
 	}
-	while (*nptr >= '0' && *nptr <= '9')
+	while (ft_isdigit(*nptr))
 	{
-		num *= 10;
-		num += (*nptr - 48);
+		res *= 10;
+		res += (*nptr - 48);
 		nptr++;
 	}
-	return (num * sign);
+	res *= sign;
+	return (res);
 }

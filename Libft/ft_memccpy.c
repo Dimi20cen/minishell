@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/30 20:05:06 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/08/08 18:48:20 by dmylonas         ###   ########.fr       */
+/*   Created: 2021/05/12 13:16:24 by graja             #+#    #+#             */
+/*   Updated: 2021/05/20 18:04:06 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,26 @@
 
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 {
-	const char	*new_src;
+	char			*d;
+	char			*s;
+	unsigned int	i;
 
-	new_src = src;
-	while (n--)
+	i = 0;
+	d = (char *)dest;
+	s = (char *)src;
+	while ((i < n) && (*s != (char)c))
 	{
-		*(char *)dest = *new_src;
-		if (*new_src == c)
-		{
-			dest++;
-			return (dest);
-		}
-		dest++;
-		new_src++;
+		*d = *s;
+		s++;
+		d++;
+		i++;
 	}
-	return (0);
+	if (*s == (char)c)
+	{
+		*d = *s;
+		d++;
+		return (d);
+	}
+	else
+		return (NULL);
 }
-// int		main(void)
-// {
-// 	char dest[30] = "asdfghjkl";
-// 	char src[30] = "0123456789";
-// 	int c = 51;
-// 	size_t n = 6;	
-// 	ft_memccpy(dest, src, c, n);
-// 	printf("%s\n", (char *)(ft_memccpy(dest, src, c, n)));
-// 	printf("%s\n", (char *)(memccpy(dest, src, c, n)));
-// }
-

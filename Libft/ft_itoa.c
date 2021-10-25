@@ -3,53 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 12:03:02 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/08/18 13:10:49 by dmylonas         ###   ########.fr       */
+/*   Created: 2021/05/13 14:20:24 by graja             #+#    #+#             */
+/*   Updated: 2021/05/27 14:12:04 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*creator(size_t size, long new_n)
+static
+int	ft_getlen(long long n, int len)
 {
-	char	*str;
-
-	str = (char *)malloc(size + 1);
-	if (!str)
-		return (0);
-	*(str + size--) = '\0';
-	if (new_n < 0)
-		new_n *= -1;
-	while (new_n > 0)
+	if (n < 0)
 	{
-		*(str + size--) = new_n % 10 + '0';
-		new_n /= 10;
+		n *= -1;
+		len = 1;
 	}
-	if (size == 0 && str[1] == '\0')
-		*(str + size) = '0';
-	else if (size == 0 && str[1] != '\0')
-		*(str + size) = '-';
-	return (str);
+	if (n < 10)
+		len++;
+	else
+	{
+		len++;
+		len = ft_getlen((n / 10), len);
+	}
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	size_t	size;
-	long	new_n;
+	int			len;
+	long long	x;
+	char		*str;
 
-	new_n = n;
-	if (n > 0)
-		size = 0;
-	else
-		size = 1;
-	while (n)
+	x = n;
+	len = ft_getlen(x, 0);
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (str);
+	str[len] = 0;
+	if (x < 0)
+		x *= -1;
+	while (len > 0)
 	{
-		n /= 10;
-		size++;
+		str[len - 1] = 48 + (x % 10);
+		x /= 10;
+		len--;
 	}
-	if (size == 0)
-		return (0);
-	return (creator(size, new_n));
+	if (n < 0)
+		str[0] = '-';
+	return (str);
 }

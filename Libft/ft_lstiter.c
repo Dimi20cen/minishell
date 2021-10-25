@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 12:00:22 by graja             #+#    #+#             */
-/*   Updated: 2021/05/20 15:50:28 by graja            ###   ########.fr       */
+/*   Created: 2021/05/24 13:16:55 by graja             #+#    #+#             */
+/*   Updated: 2021/05/27 14:47:03 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	if (fd == 0)
-		return ;
-	write(fd, &c, 1);
+	while (f && lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
 }

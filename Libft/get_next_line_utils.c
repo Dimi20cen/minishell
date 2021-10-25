@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/15 12:00:22 by graja             #+#    #+#             */
-/*   Updated: 2021/05/20 15:50:28 by graja            ###   ########.fr       */
+/*   Created: 2021/06/03 14:29:01 by graja             #+#    #+#             */
+/*   Updated: 2021/09/19 18:22:25 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "gnl.h"
 
-void	ft_putchar_fd(char c, int fd)
+size_t	gnl_strlen(const char *s, int flag)
 {
-	if (fd == 0)
-		return ;
-	write(fd, &c, 1);
+	size_t	i;
+
+	i = 0;
+	if (flag <= 0)
+	{
+		while (s[i] != '\0')
+			i++;
+	}
+	else
+		while (s[i] != '\0' && s[i] != '\n')
+			i++;
+	return (i);
 }
