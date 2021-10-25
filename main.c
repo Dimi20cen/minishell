@@ -6,7 +6,7 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:26:28 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/10/25 11:38:25 by graja            ###   ########.fr       */
+/*   Updated: 2021/10/25 12:16:04 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //"0"1"
 
 // Greeting shell during startup
-void ms_init_shell()
+void ms_init_shell(t_list **head)
 {
 	char	*input;
 	t_split	data;
@@ -24,10 +24,13 @@ void ms_init_shell()
 	while (1)
 	{
 		data.i = 0;
-		if (!(input = readline("gimme input NOW >")))
-			continue ;
-		// printf("the input is: %s\n", input);
-		add_history(input);
+		if (!(input = readline(ms_getprompt(*head))))
+			return ;
+		/* printf("the input is: %s\n", input);
+		 * only add to history if strlen > 0
+		 */
+		if (ft_strlen(input))
+			add_history(input);
 		ms_input_parser(input, &data);
 		int j = -1;
 		while (j++ < 7)
@@ -45,6 +48,6 @@ int main(int argc, char **argv, char **env)
 	if (!ehead || !argc || !argv)
 		return (1);
 	ms_init_env(ehead, env);
-	ms_init_shell();
+	ms_init_shell(ehead);
 	return (0);
 }

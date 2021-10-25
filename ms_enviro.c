@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ms_enviro.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:16:28 by graja             #+#    #+#             */
-/*   Updated: 2021/10/25 11:55:54 by graja            ###   ########.fr       */
+/*   Updated: 2021/10/25 12:48:02 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,22 @@ void	ms_printenv(t_list *head)
 		printf("Value	= %s\n\n", val->value);
 		head = head->next;
 	}
+}
+
+char	*ms_getenv(t_list *head, char *str)
+{
+	t_env	*val;
+
+	if (!head || !str)
+		return (NULL);
+	while (head)
+	{
+		val = (t_env *)(head->content);
+		if (!strncmp(val->name, str, ft_strlen(str)))
+			return (val->value);
+		head = head->next;
+	}
+	return (NULL);
 }
 
 int	ms_add2list(t_list **ehead, char *str)

@@ -33,7 +33,9 @@ typedef struct s_env
 # include <sys/stat.h>
 
 void	ms_input_parser(char *input, t_split *data);
-int	ms_add2list(t_list **ehead, char *str);
-int	ms_init_env(t_list **ehead, char **env);
+int		ms_add2list(t_list **ehead, char *str);
+int		ms_init_env(t_list **ehead, char **env);
+char	*ms_getprompt(t_list *head);
+char	*ms_getenv(t_list *head, char *str);
 
 #endif

@@ -6,13 +6,13 @@
 #    By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/19 13:23:33 by graja             #+#    #+#              #
-#    Updated: 2021/10/25 11:42:33 by graja            ###   ########.fr        #
+#    Updated: 2021/10/25 12:33:34 by graja            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= minishell
 LIBFT		= Libft
-SRC		= init.c main.c utils.c ms_input_parser.c
+SRC		= ms_enviro.c main.c utils.c ms_input_parser.c ms_prompt.c
 CC		= gcc
 FLAGS		= -Wall -Wextra -Werror -pthread 
 RM		= rm -f
