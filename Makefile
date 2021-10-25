@@ -3,41 +3,34 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+         #
+#    By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/24 14:45:58 by dmylonas          #+#    #+#              #
-#    Updated: 2021/10/24 17:50:47 by dmylonas         ###   ########.fr        #
+#    Created: 2021/10/19 13:23:33 by graja             #+#    #+#              #
+#    Updated: 2021/10/25 11:42:33 by graja            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
+NAME		= minishell
+LIBFT		= Libft
+SRC		= init.c main.c utils.c ms_input_parser.c
+CC		= gcc
+FLAGS		= -Wall -Wextra -Werror -pthread 
+RM		= rm -f
 
-LIB_PATH = ./Libft
-LIB_NAME = libft.a
+$(NAME)	:	$(SRC) $(LIBFT)
+	make -C $(LIBFT)
+	$(CC) $(FLAGS) $(SRC) -L$(LIBFT) -lft -lreadline -o $(NAME)
 
-COMPILE = gcc -Wall -Werror -Wall -g -pthread -lreadline
-COMPILE_DEV = gcc -g -pthread
+all	: $(NAME)
 
-SRCS = main.c \
-	utils.c \
-	ms_input_parser.c
 
-all: $(LIB_NAME) $(NAME)
+fclean	: clean
+	$(RM) $(NAME)
+	make fclean -C $(LIBFT)
 
-$(LIB_NAME): 
-	make -C $(LIB_PATH)
-	make -C $(LIB_PATH) clean
+clean	: 
+	make clean -C $(LIBFT)
 
-$(NAME): $(SRCS) minishell.h
-	$(COMPILE_DEV) $(SRCS) -lreadline -L $(LIB_PATH) -lft -o $(NAME)
+re	: fclean all
 
-clean: 
-	rm -f $(NAME)
 
-fclean: clean
-	rm -f $(NAME)
-	make -C $(LIB_PATH) fclean
-
-re: fclean all
-
-.PHONY: all clean fclean re

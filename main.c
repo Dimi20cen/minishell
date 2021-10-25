@@ -6,7 +6,7 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:26:28 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/10/24 19:24:15 by dmylonas         ###   ########.fr       */
+/*   Updated: 2021/10/25 11:38:25 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,14 @@ void ms_init_shell()
 	}
 }
 
-int main()
+int main(int argc, char **argv, char **env)
 {
+	t_list	**ehead;
+	
+	ehead = malloc(sizeof(t_list));
+	if (!ehead || !argc || !argv)
+		return (1);
+	ms_init_env(ehead, env);
 	ms_init_shell();
 	return (0);
 }
