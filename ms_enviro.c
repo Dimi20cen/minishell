@@ -6,12 +6,17 @@
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 10:16:28 by graja             #+#    #+#             */
-/*   Updated: 2021/10/25 15:20:26 by graja            ###   ########.fr       */
+/*   Updated: 2021/10/25 18:06:59 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* changes the value of ENV-VAR name to the value val
+ * if no such ENV-VAR exists it will be created and
+ * the value set
+ * returns 0 on success and 1 on failure
+ */
 int	ms_putenv(t_list **head, char *name, char *val)
 {
 	t_env	*ptr;
@@ -22,7 +27,7 @@ int	ms_putenv(t_list **head, char *name, char *val)
 	{
 		ptr = (t_env *)(iter->content);
 		if (!ft_strncmp(ptr->name, name, ft_strlen(name)))
-			break;
+			break ;
 		iter = iter->next;
 	}
 	if (iter)
@@ -39,6 +44,9 @@ int	ms_putenv(t_list **head, char *name, char *val)
 		return (1);
 }
 
+/* returns the value of ENV-VAR name as a string
+ * returns NULL if non existant
+ */
 char	*ms_getenv(t_list *head, char *str)
 {
 	t_env	*val;
@@ -50,7 +58,6 @@ char	*ms_getenv(t_list *head, char *str)
 		val = (t_env *)(head->content);
 		if (!strncmp(val->name, str, ft_strlen(str)))
 			return (val->value);
-
 		head = head->next;
 	}
 	return (NULL);
@@ -90,7 +97,10 @@ int	ms_add2list(t_list **ehead, char *str)
 	return (0);
 }
 
-
+/* init the ENV and load everything in a linked list
+ * ehead points to the head, *ehead is the head
+ * returns 0 on success, 1 on failure
+ */
 int	ms_init_env(t_list **ehead, char **env)
 {
 	int	err;
@@ -105,6 +115,5 @@ int	ms_init_env(t_list **ehead, char **env)
 	}
 	if (!env || !i)
 		err = 1;
-	ms_putenv(ehead, "PWD", "TEST");
 	return (err);
 }

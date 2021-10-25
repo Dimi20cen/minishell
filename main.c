@@ -6,17 +6,14 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:26:28 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/10/25 15:20:39 by graja            ###   ########.fr       */
+/*   Updated: 2021/10/25 18:10:44 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//"lol sdfasd adfasdf sdfasdf" sdfasdf   "fasdf sdfasdf /// ||| "sadfadf\nfdasfd"
-//"0"1"
-
 // Greeting shell during startup
-void ms_init_shell(t_list **head)
+void	ms_init_shell(t_list **head)
 {
 	char	*input;
 	char	*prompt;

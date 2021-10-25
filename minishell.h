@@ -1,21 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/25 18:07:32 by graja             #+#    #+#             */
+/*   Updated: 2021/10/25 18:09:10 by graja            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-typedef struct s_split
-{
-	int		i;
-	char	tokens[40][200];
-}			t_split;
-
-typedef struct s_env
-{
-	char	*name;
-	char	*value;
-}		t_env;
-
 # include "Libft/libft.h"
-
 # include <stdlib.h>
 # include <stdio.h>
 # include <readline/readline.h>
@@ -31,6 +28,18 @@ typedef struct s_env
 # include <sys/ioctl.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
+
+typedef struct s_split
+{
+	int		i;
+	char	tokens[40][200];
+}			t_split;
+
+typedef struct s_env
+{
+	char	*name;
+	char	*value;
+}		t_env;
 
 void	ms_input_parser(char *input, t_split *data);
 int		ms_add2list(t_list **ehead, char *str);
