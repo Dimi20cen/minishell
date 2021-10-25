@@ -6,7 +6,7 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:26:28 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/10/25 12:16:04 by graja            ###   ########.fr       */
+/*   Updated: 2021/10/25 15:20:39 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,19 @@
 void ms_init_shell(t_list **head)
 {
 	char	*input;
+	char	*prompt;
 	t_split	data;
 
 	while (1)
 	{
 		data.i = 0;
-		if (!(input = readline(ms_getprompt(*head))))
+		prompt = ms_getprompt(*head);
+		if (!(input = readline(prompt)))
+		{
+			free(prompt);
 			return ;
+		}
+		free(prompt);
 		/* printf("the input is: %s\n", input);
 		 * only add to history if strlen > 0
 		 */
@@ -50,4 +56,5 @@ int main(int argc, char **argv, char **env)
 	ms_init_env(ehead, env);
 	ms_init_shell(ehead);
 	return (0);
+
 }
