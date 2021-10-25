@@ -19,7 +19,7 @@ void	clear_previous_tokens(t_split *data)
 }
 
 //parses input inside data->token 2d array,
-//tokens that were inside "" are start with "" so we can recognize them, "lol"->""lol
+//tokens that were inside '' are start with '' so we can recognize them, "lol"->""lol
 void	ms_input_parser(char *input, t_split *data)
 {
 	int space_found;
@@ -67,6 +67,9 @@ void	ms_input_parser(char *input, t_split *data)
 			}
 			else
 			{
+				data->tokens[d][t] = '\'';
+				data->tokens[d][t + 1] = '\'';
+				t += 2;
 				data->i++;
 				while (input[data->i] != '\'')
 				{
@@ -82,6 +85,7 @@ void	ms_input_parser(char *input, t_split *data)
 		}
 		else if (input[data->i] == '"')
 		{
+			data->i++;
 			if (data->i > 0 && input[data->i - 1] != ' ')
 			{
 				d++;
@@ -95,10 +99,6 @@ void	ms_input_parser(char *input, t_split *data)
 			}
 			else
 			{
-				data->tokens[d][t] = '"';
-				data->tokens[d][t + 1] = '"';
-				t += 2;
-				data->i++;
 				while (input[data->i] != '"')
 				{
 					data->tokens[d][t] = input[data->i];
