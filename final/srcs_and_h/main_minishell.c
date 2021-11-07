@@ -6,7 +6,7 @@
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/19 12:26:28 by dmylonas          #+#    #+#             */
-/*   Updated: 2021/11/07 09:42:31 by dmylonas         ###   ########.fr       */
+/*   Updated: 2021/11/07 17:57:12 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ static void	repl(void)
 	}
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(void)
 {
 	g_minishell.error_status = 0;
-	if (argc > 1 && argv)
-		error_message("bruv", "too many arguments.", 42);
-	g_minishell.env = env_to_hashmap(env);
+	g_minishell.env = env_to_hashmap(__environ);
 	g_minishell.local_vars = hashmap_create_table(69);
 	repl();
 	return (0);
