@@ -1,3 +1,0 @@
-Not interpret unclosed quotes or unspecified special characters like \ or ; -----------> I deal with them like normal chars
-
-tokens that were inside ''are start with '' so we can recognize them, 'lol'->''lol, we do that so we can know which args where inside '' and just not interpet $ in the future

@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ms_builtin_pwd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/12 14:08:31 by graja             #+#    #+#             */
-/*   Updated: 2021/11/03 18:00:11 by graja            ###   ########.fr       */
+/*   Created: 2021/10/27 11:50:05 by graja             #+#    #+#             */
+/*   Updated: 2021/11/29 12:12:16 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../header/minishell.h"
 
-size_t	ft_strlen(const char *s)
+void	ms_builtin_pwd(t_list **head)
 {
-	unsigned int	i;
+	char	*str;
 
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	str = ms_getenv(*head, "PWD");
+	if (str)
+		printf("%s\n", str);
+	ms_print_error(head, NULL, 0);
 }

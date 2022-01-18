@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   main_signals_extra.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmylonas <dmylonas@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/12 16:43:41 by graja             #+#    #+#             */
-/*   Updated: 2021/12/04 11:57:25 by dmylonas         ###   ########.fr       */
+/*   Created: 2021/11/30 13:10:50 by dmylonas          #+#    #+#             */
+/*   Updated: 2021/11/30 13:11:19 by dmylonas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../header/minishell.h"
 
-char	*ft_strdup(const char *s)
+static
+void	display_for_blocking_cmd(int num)
 {
-	char	*string;
-	size_t	length;
-	size_t	i;
+	num++;
+	write(1, "\n", 1);
+}
 
-	if (!s)
-		return (NULL);
-	length = ft_strlen(s);
-	string = (char *)malloc(length + 1);
-	if (string == NULL)
-		return (NULL);
-	i = 0;
-	while (i < length)
-	{
-		string[i] = s[i];
-		i++;
-	}
-	string[length] = '\0';
-	return (string);
+static
+void	quit_process(int num)
+{
+	num++;
+	printf("Quit (core dumped)\n");
+}
+
+void	signal_for_blocking_cmd(void)
+{
+	signal(SIGINT, display_for_blocking_cmd);
+	signal(SIGQUIT, quit_process);
 }

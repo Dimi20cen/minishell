@@ -1,5 +1,8 @@
 # minishell
+Minishell - 42 project to write your own shell mimicking bash
 
-Not interpret unclosed quotes or unspecified special characters like \ or ; -----------> I deal with them like normal chars
+this is a 42 project to understand how a shell is working,
+including executing commands, builtins and the environment
 
-tokens that were inside "" are start with "" so we can recognize them, "lol"->""lol
+
+![Screenshot](https://user-images.githubusercontent.com/77735052/144885310-c6c456ce-f117-4339-ac98-6e9ec75968c0.png)

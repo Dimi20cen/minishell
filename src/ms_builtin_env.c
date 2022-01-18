@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ms_builtin_env.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/12 14:08:31 by graja             #+#    #+#             */
-/*   Updated: 2021/11/03 18:00:11 by graja            ###   ########.fr       */
+/*   Created: 2021/10/26 13:09:07 by graja             #+#    #+#             */
+/*   Updated: 2021/11/29 12:31:04 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../header/minishell.h"
 
-size_t	ft_strlen(const char *s)
+int	ms_builtin_env(t_list **list)
 {
-	unsigned int	i;
+	t_env	*ptr;
+	t_list	*head;
 
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	if (!list)
+		return (1);
+	head = *list;
+	while (head)
+	{
+		ptr = (t_env *)(head->content);
+		printf("%s=", ptr->name);
+		if (ptr->value)
+			printf("%s\n", ptr->value);
+		else
+			printf("\n");
+		head = head->next;
+	}
+	ms_print_error(list, NULL, 0);
+	return (0);
 }
