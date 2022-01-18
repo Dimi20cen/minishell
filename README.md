@@ -1,4 +1,4 @@
-# minishell
+# Minishell
 Minishell - 42 project, write your own bash
 
 The goal is to understand how a bash shell is working.
