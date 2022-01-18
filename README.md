@@ -1,8 +1,6 @@
 # minishell
-Minishell - 42 project to write your own shell mimicking bash
+Minishell - 42 project, write your own bash
 
-this is a 42 project to understand how a shell is working,
-including executing commands, builtins and the environment
-
+The goal is to understand how a bash shell is working.
 
 ![Screenshot](https://user-images.githubusercontent.com/77735052/144885310-c6c456ce-f117-4339-ac98-6e9ec75968c0.png)
